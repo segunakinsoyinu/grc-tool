@@ -1,0 +1,3 @@
+# Store all files byte-for-byte. This artefact is verified by SHA-256 against the
+# laboratory VM, so Git must not rewrite line endings on commit or checkout.
+* -text

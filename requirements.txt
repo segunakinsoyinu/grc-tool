@@ -1,0 +1,8 @@
+# GRC Compliance Assessment Tool - Python dependencies
+# Python 3.10+
+
+fastapi>=0.110
+uvicorn>=0.27
+pydantic>=2.5
+anthropic>=0.34
+weasyprint>=60.0

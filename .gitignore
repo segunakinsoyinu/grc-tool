@@ -1,0 +1,40 @@
+# Secrets
+.env
+.env.*
+
+# Research data - assessment records, lab evidence, evaluation ground truth
+data/
+*.db
+*.sqlite
+*.sqlite3
+nmap-scan.xml
+patches.csv
+rq1-manual/
+rq1-manual*/
+manual-CE.csv
+manual-GDPR.csv
+manual-ISO.csv
+RQ2-GroundTruth-51.csv
+archive-assessment10/
+baseline-audit-*.txt
+
+# Working artefacts
+*.bak
+*.prefix-*
+server.log
+*.log
+
+# Python
+__pycache__/
+*.py[cod]
+.venv/
+venv/
+env/
+.ruff_cache/
+.pytest_cache/
+
+# Editors / OS
+.vscode/
+.idea/
+.DS_Store
+Thumbs.db
