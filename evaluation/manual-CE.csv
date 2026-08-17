@@ -1,0 +1,27 @@
+﻿INSTRUMENT: NCSC Cyber Essentials self-assessment questionnaire
+FRAMEWORK: Cyber Essentials  |  22 controls
+Assessed against the same technical evidence as the unified tool (nmap-scan.xml and both host baseline audits).
+
+control_id,control_name,category,checklist_item_used,verdict,evidence_cited
+CE-FW-1,Firewall Coverage,Firewalls,CE theme: Firewalls,fail,Get-NetFirewallProfile: Domain/Private/Public all False on both hosts
+CE-FW-2,Default Deny Inbound,Firewalls,CE theme: Firewalls,fail,"DefaultInboundAction NotConfigured; firewall disabled, both hosts"
+CE-FW-3,Firewall Rule Documentation,Firewalls,CE theme: Firewalls,fail,JUDGEMENT: 64 (server) and 93 (Win10) enabled inbound rules on a disabled firewall; no review evidence
+CE-FW-4,Block Unnecessary Services,Firewalls,CE theme: Firewalls,fail,"nmap: 21 FTP, 23 Telnet, 5900 VNC listening; Get-SmbServerConfiguration EnableSMB1Protocol True"
+CE-MP-1,Malware Protection Installed,Malware Protection,CE theme: Malware Protection,pass,"Get-MpComputerStatus: AMServiceEnabled True, RealTimeProtectionEnabled True, both hosts"
+CE-MP-2,Malware Definitions Updated,Malware Protection,CE theme: Malware Protection,fail,Win10 AntivirusSignatureLastUpdated 23/09/2019; server current 03/08/2026
+CE-MP-3,Regular Malware Scans,Malware Protection,CE theme: Malware Protection,pass,JUDGEMENT: RealTimeProtectionEnabled True both hosts; no scheduled scan evidence
+CE-MP-4,Block Malicious Execution,Malware Protection,CE theme: Malware Protection,pass,JUDGEMENT: Defender real-time protection active; no execution-control evidence collected
+CE-PM-1,Licensed and Supported Software,Patch Management,CE theme: Security Update Management,fail,Win10 Pro: Microsoft support ended 14/10/2025; audit captured 04/08/2026. Server 2022 supported
+CE-PM-2,Patch Within 14 Days,Patch Management,CE theme: Security Update Management,fail,Get-HotFix: server last patch 03/03/2022 (1616 days); Win10 04/12/2023
+CE-PM-3,Remove Unsupported Software,Patch Management,CE theme: Security Update Management,fail,FS-SMB1 and XPS-Viewer installed on server; Win10 OS itself out of support
+CE-PM-4,Auto-update Enabled,Patch Management,CE theme: Security Update Management,fail,"Get-Service wuauserv: Disabled (Win10), Manual/Stopped (server)"
+CE-SC-1,Change Default Passwords,Secure Configuration,CE theme: Secure Configuration,fail,Get-LocalUser: Win10 Guest and WIN10-WS both PasswordRequired False; net accounts min length 0
+CE-SC-2,Disable Unnecessary Accounts,Secure Configuration,CE theme: Secure Configuration,fail,"Get-LocalUser: Win10 Guest Enabled True, PasswordRequired False"
+CE-SC-3,Disable Auto-run,Secure Configuration,CE theme: Secure Configuration,fail,NoDriveTypeAutoRun policy key absent on both hosts
+CE-SC-4,Minimal Software Installation,Secure Configuration,CE theme: Secure Configuration,fail,"Get-WindowsFeature: IIS, Web-Ftp-Server, FS-SMB1, XPS-Viewer installed; tvnserver running"
+CE-SC-5,Remove Unused Software,Secure Configuration,CE theme: Secure Configuration,fail,FS-SMB1 and XPS-Viewer retained on a file server with no stated need
+CE-UAC-1,Admin Account Separation,User Access Control,CE theme: User Access Control,fail,Server: Administrator is the only account and is used interactively. Win10: WIN10-WS in Administrators
+CE-UAC-2,Least Privilege,User Access Control,CE theme: User Access Control,fail,Get-LocalGroupMember: DESKTOP-CMT1CTM\WIN10-WS is a daily-use account in Administrators
+CE-UAC-3,MFA for Cloud Services,User Access Control,CE theme: User Access Control,pass,"No evidence in the pack concerns cloud services; questionnaire attests MFA enabled, nothing contradicts"
+CE-UAC-4,MFA for Remote Access,User Access Control,CE theme: User Access Control,fail,"Server registry: fDenyTSConnections 0, UserAuthenticationRequired 0 (NLA disabled)"
+CE-UAC-5,Password Policy,User Access Control,CE theme: User Access Control,fail,"net accounts: min length 0, history None, server lockout threshold Never"

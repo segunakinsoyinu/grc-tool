@@ -1,0 +1,384 @@
+BASELINE AUDIT
+Host      : Windows-Server-2022
+Captured  : 2026-08-04 07:26:56
+OS        : Microsoft Windows Server 2022 Standard Evaluation
+
+==============================================================================
+CONTROLS : CE-UAC-5, ISO-A.5.17  (password policy)
+COMMAND  : net accounts
+==============================================================================
+Force user logoff how long after time expires?:       Never
+Minimum password age (days):                          0
+Maximum password age (days):                          42
+Minimum password length:                              0
+Length of password history maintained:                None
+Lockout threshold:                                    Never
+Lockout duration (minutes):                           30
+Lockout observation window (minutes):                 30
+Computer role:                                        SERVER
+The command completed successfully.
+
+
+==============================================================================
+CONTROLS : CE-SC-2, CE-UAC-1, ISO-A.8.2, ISO-A.5.16  (local accounts)
+COMMAND  : Get-LocalUser
+==============================================================================
+
+Name               Enabled PasswordRequired PasswordLastSet
+----               ------- ---------------- ---------------
+Administrator         True             True 7/9/2026 2:52:31 PM
+DefaultAccount       False            False
+Guest                False            False
+WDAGUtilityAccount   False             True 7/9/2026 2:35:39 PM
+
+
+==============================================================================
+CONTROLS : CE-UAC-1, CE-UAC-2, ISO-A.8.2, ISO-A.5.18  (privileged access)
+COMMAND  : Get-LocalGroupMember -Group Administrators
+==============================================================================
+
+Name                          ObjectClass
+----                          -----------
+WIN-DB66J40P2HQ\Administrator User
+
+
+==============================================================================
+CONTROLS : CE-FW-1, CE-FW-2  (firewall state)
+COMMAND  : Get-NetFirewallProfile
+==============================================================================
+
+Name    Enabled DefaultInboundAction DefaultOutboundAction
+----    ------- -------------------- ---------------------
+Domain    False        NotConfigured         NotConfigured
+Private   False        NotConfigured         NotConfigured
+Public    False        NotConfigured         NotConfigured
+
+
+==============================================================================
+CONTROLS : CE-FW-3  (firewall rule documentation proxy)
+COMMAND  : Get-NetFirewallRule -Direction Inbound -Enabled True
+==============================================================================
+Enabled inbound rules: 64
+
+
+==============================================================================
+CONTROLS : CE-PM-2, CE-PM-4, GDPR-32-8, ISO-A.8.8  (patch currency)
+COMMAND  : Get-HotFix
+==============================================================================
+
+HotFixID  Description     InstalledOn
+--------  -----------     -----------
+KB5010523 Update          3/3/2022 12:00:00 AM
+KB5011497 Security Update 3/3/2022 12:00:00 AM
+KB5008882 Update          3/3/2022 12:00:00 AM
+
+
+==============================================================================
+CONTROLS : CE-PM-4, ISO-A.8.19  (update service state)
+COMMAND  : Get-Service wuauserv
+==============================================================================
+
+Name      Status StartType
+----      ------ ---------
+wuauserv Stopped    Manual
+
+
+==============================================================================
+CONTROLS : CE-SC-4, CE-SC-5, CE-FW-2  (listening ports)
+COMMAND  : Get-NetTCPConnection -State Listen
+==============================================================================
+21
+80
+135
+139
+445
+3389
+5800
+5900
+5985
+47001
+49664
+49665
+49666
+49667
+49668
+49670
+49676
+49677
+
+
+==============================================================================
+CONTROLS : CE-SC-4, CE-SC-5  (running services)
+COMMAND  : Get-Service | Where-Object Status -eq Running
+==============================================================================
+
+Name                   DisplayName
+----                   -----------
+AppHostSvc             Application Host Helper Service
+AppXSvc                AppX Deployment Service (AppXSVC)
+BFE                    Base Filtering Engine
+BrokerInfrastructure   Background Tasks Infrastructure Service
+Browser                Computer Browser
+camsvc                 Capability Access Manager Service
+cbdhsvc_b523e          Clipboard User Service_b523e
+CDPSvc                 Connected Devices Platform Service
+CDPUserSvc_b523e       Connected Devices Platform User Service_b523e
+CertPropSvc            Certificate Propagation
+CoreMessagingRegistrar CoreMessaging
+CryptSvc               Cryptographic Services
+DcomLaunch             DCOM Server Process Launcher
+Dhcp                   DHCP Client
+DiagTrack              Connected User Experiences and Telemetry
+DispBrokerDesktopSvc   Display Policy Service
+Dnscache               DNS Client
+DPS                    Diagnostic Policy Service
+EventLog               Windows Event Log
+EventSystem            COM+ Event System
+FontCache              Windows Font Cache Service
+ftpsvc                 Microsoft FTP Service
+gpsvc                  Group Policy Client
+IKEEXT                 IKE and AuthIP IPsec Keying Modules
+iphlpsvc               IP Helper
+KeyIso                 CNG Key Isolation
+LanmanServer           Server
+LanmanWorkstation      Workstation
+lmhosts                TCP/IP NetBIOS Helper
+LSM                    Local Session Manager
+MDCoreSvc              Microsoft Defender Core Service
+mpssvc                 Windows Defender Firewall
+MSDTC                  Distributed Transaction Coordinator
+NcbService             Network Connection Broker
+netprofm               Network List Service
+NlaSvc                 Network Location Awareness
+nsi                    Network Store Interface Service
+PcaSvc                 Program Compatibility Assistant Service
+PlugPlay               Plug and Play
+PolicyAgent            IPsec Policy Agent
+Power                  Power
+ProfSvc                User Profile Service
+RpcEptMapper           RPC Endpoint Mapper
+RpcSs                  Remote Procedure Call (RPC)
+SamSs                  Security Accounts Manager
+Schedule               Task Scheduler
+SENS                   System Event Notification Service
+SessionEnv             Remote Desktop Configuration
+ShellHWDetection       Shell Hardware Detection
+Spooler                Print Spooler
+StateRepository        State Repository Service
+StorSvc                Storage Service
+SysMain                SysMain
+SystemEventsBroker     System Events Broker
+TabletInputService     Touch Keyboard and Handwriting Panel Service
+TermService            Remote Desktop Services
+Themes                 Themes
+TimeBrokerSvc          Time Broker
+TokenBroker            Web Account Manager
+TrkWks                 Distributed Link Tracking Client
+TrustedInstaller       Windows Modules Installer
+tvnserver              TightVNC Server
+UALSVC                 User Access Logging Service
+UmRdpService           Remote Desktop Services UserMode Port Redirector
+UserManager            User Manager
+UsoSvc                 Update Orchestrator Service
+VBoxService            VirtualBox Guest Additions Service
+W32Time                Windows Time
+W3SVC                  World Wide Web Publishing Service
+WaaSMedicSvc           Windows Update Medic Service
+WAS                    Windows Process Activation Service
+Wcmsvc                 Windows Connection Manager
+WdNisSvc               Microsoft Defender Antivirus Network Inspection Service
+WinDefend              Microsoft Defender Antivirus Service
+WinHttpAutoProxySvc    WinHTTP Web Proxy Auto-Discovery Service
+Winmgmt                Windows Management Instrumentation
+WinRM                  Windows Remote Management (WS-Management)
+WLMS                   Windows Licensing Monitoring Service
+WpnService             Windows Push Notifications System Service
+WpnUserService_b523e   Windows Push Notifications User Service_b523e
+
+
+==============================================================================
+CONTROLS : CE-MP-1, CE-MP-2, CE-MP-3, ISO-A.8.7  (anti-malware)
+COMMAND  : Get-MpComputerStatus
+==============================================================================
+
+AMServiceEnabled              : True
+RealTimeProtectionEnabled     : True
+AntivirusEnabled              : True
+AntivirusSignatureVersion     : 1.455.499.0
+AntivirusSignatureLastUpdated : 8/3/2026 6:04:19 PM
+
+
+==============================================================================
+CONTROLS : CE-SC-3  (autorun policy)
+COMMAND  : HKLM:\SOFTWARE\Microsoft\Windows\CurrentVersion\Policies\Explorer NoDriveTypeAutoRun
+==============================================================================
+(no value returned - policy key absent, autorun not disabled)
+
+
+==============================================================================
+CONTROLS : CE-UAC-3, CE-UAC-4, ISO-A.8.5, GDPR-32-9  (RDP authentication)
+COMMAND  : HKLM:\SYSTEM\CurrentControlSet\Control\Terminal Server  fDenyTSConnections / UserAuthenticationRequired
+==============================================================================
+
+fDenyTSConnections         : 0
+UserAuthenticationRequired : 0
+
+
+==============================================================================
+CONTROLS : ISO-A.8.24, GDPR-32-2  (encryption at rest)
+COMMAND  : Get-BitLockerVolume
+==============================================================================
+ERROR: The term 'Get-BitLockerVolume' is not recognized as the name of a cmdlet, function, script file, or operable program. Check the spelling of the name, or if a path was included, verify that the path is correct and try again.
+(BitLocker feature is not installed on this host, therefore no volume encryption)
+
+
+==============================================================================
+CONTROLS : ISO-A.8.22, CE-FW-4  (SMB configuration)
+COMMAND  : Get-SmbServerConfiguration
+==============================================================================
+
+EnableSMB1Protocol       : True
+EnableSMB2Protocol       : True
+EnableSecuritySignature  : False
+RequireSecuritySignature : False
+
+
+==============================================================================
+CONTROLS : ISO-A.8.15, ISO-A.8.16  (audit and logging policy)
+COMMAND  : auditpol /get /category:*
+==============================================================================
+System audit policy
+
+Category/Subcategory                      Setting
+System
+  Security System Extension               No Auditing
+  System Integrity                        Success and Failure
+  IPsec Driver                            No Auditing
+  Other System Events                     Success and Failure
+  Security State Change                   Success
+
+Logon/Logoff
+  Logon                                   Success and Failure
+  Logoff                                  Success
+  Account Lockout                         Success
+  IPsec Main Mode                         No Auditing
+  IPsec Quick Mode                        No Auditing
+  IPsec Extended Mode                     No Auditing
+  Special Logon                           Success
+  Other Logon/Logoff Events               No Auditing
+  Network Policy Server                   Success and Failure
+  User / Device Claims                    No Auditing
+  Group Membership                        No Auditing
+
+Object Access
+  File System                             No Auditing
+  Registry                                No Auditing
+  Kernel Object                           No Auditing
+  SAM                                     No Auditing
+  Certification Services                  No Auditing
+  Application Generated                   No Auditing
+  Handle Manipulation                     No Auditing
+  File Share                              No Auditing
+  Filtering Platform Packet Drop          No Auditing
+  Filtering Platform Connection           No Auditing
+  Other Object Access Events              No Auditing
+  Detailed File Share                     No Auditing
+  Removable Storage                       No Auditing
+  Central Policy Staging                  No Auditing
+
+Privilege Use
+  Non Sensitive Privilege Use             No Auditing
+  Other Privilege Use Events              No Auditing
+  Sensitive Privilege Use                 No Auditing
+
+Detailed Tracking
+  Process Creation                        No Auditing
+  Process Termination                     No Auditing
+  DPAPI Activity                          No Auditing
+  RPC Events                              No Auditing
+  Plug and Play Events                    No Auditing
+  Token Right Adjusted Events             No Auditing
+
+Policy Change
+  Audit Policy Change                     Success
+  Authentication Policy Change            Success
+  Authorization Policy Change             No Auditing
+  MPSSVC Rule-Level Policy Change         No Auditing
+  Filtering Platform Policy Change        No Auditing
+  Other Policy Change Events              No Auditing
+
+Account Management
+  Computer Account Management             Success
+  Security Group Management               Success
+  Distribution Group Management           No Auditing
+  Application Group Management            No Auditing
+  Other Account Management Events         No Auditing
+  User Account Management                 Success
+
+DS Access
+  Directory Service Access                Success
+  Directory Service Changes               No Auditing
+  Directory Service Replication           No Auditing
+  Detailed Directory Service Replication  No Auditing
+
+Account Logon
+  Kerberos Service Ticket Operations      Success
+  Other Account Logon Events              No Auditing
+  Kerberos Authentication Service         Success
+  Credential Validation                   Success
+
+
+==============================================================================
+CONTROLS : ISO-A.8.13, ISO-A.8.14, GDPR-32-5  (backup and recovery)
+COMMAND  : vssadmin list shadows
+==============================================================================
+vssadmin 1.1 - Volume Shadow Copy Service administrative command-line tool
+(C) Copyright 2001-2013 Microsoft Corp.
+
+No items found that satisfy the query.
+
+
+==============================================================================
+CONTROLS : CE-SC-4, CE-SC-5  (installed roles and features, server only)
+COMMAND  : Get-WindowsFeature | Where-Object Installed
+==============================================================================
+
+Name                      DisplayName
+----                      -----------
+FileAndStorage-Services   File and Storage Services
+Storage-Services          Storage Services
+Web-Server                Web Server (IIS)
+Web-WebServer             Web Server
+Web-Common-Http           Common HTTP Features
+Web-Default-Doc           Default Document
+Web-Dir-Browsing          Directory Browsing
+Web-Http-Errors           HTTP Errors
+Web-Static-Content        Static Content
+Web-Health                Health and Diagnostics
+Web-Http-Logging          HTTP Logging
+Web-Performance           Performance
+Web-Stat-Compression      Static Content Compression
+Web-Security              Security
+Web-Filtering             Request Filtering
+Web-Ftp-Server            FTP Server
+Web-Ftp-Service           FTP Service
+Web-Ftp-Ext               FTP Extensibility
+Web-Mgmt-Tools            Management Tools
+Web-Mgmt-Console          IIS Management Console
+NET-Framework-45-Features .NET Framework 4.8 Features
+NET-Framework-45-Core     .NET Framework 4.8
+NET-WCF-Services45        WCF Services
+NET-WCF-TCP-PortSharing45 TCP Port Sharing
+Windows-Defender          Microsoft Defender Antivirus
+FS-SMB1                   SMB 1.0/CIFS File Sharing Support
+FS-SMB1-CLIENT            SMB 1.0/CIFS Client
+FS-SMB1-SERVER            SMB 1.0/CIFS Server
+System-DataArchiver       System Data Archiver
+PowerShellRoot            Windows PowerShell
+PowerShell                Windows PowerShell 5.1
+WoW64-Support             WoW64 Support
+XPS-Viewer                XPS Viewer
+
+
+==============================================================================
+END OF BASELINE AUDIT

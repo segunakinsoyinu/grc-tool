@@ -1,0 +1,363 @@
+BASELINE AUDIT
+Host      : Windows-10-Workstation
+Captured  : 2026-08-04 07:31:11
+OS        : Microsoft Windows 10 Pro
+
+
+==============================================================================
+CONTROLS : CE-UAC-5, ISO-A.5.17  (password policy)
+COMMAND  : net accounts
+==============================================================================
+Force user logoff how long after time expires?:       Never
+Minimum password age (days):                          0
+Maximum password age (days):                          42
+Minimum password length:                              0
+Length of password history maintained:                None
+Lockout threshold:                                    10
+Lockout duration (minutes):                           10
+Lockout observation window (minutes):                 10
+Computer role:                                        WORKSTATION
+The command completed successfully.
+
+
+==============================================================================
+CONTROLS : CE-SC-2, CE-UAC-1, ISO-A.8.2, ISO-A.5.16  (local accounts)
+COMMAND  : Get-LocalUser
+==============================================================================
+
+Name               Enabled PasswordRequired PasswordLastSet
+----               ------- ---------------- ---------------
+Administrator        False             True
+DefaultAccount       False            False
+Guest                 True            False 7/16/2026 3:02:48 PM
+WDAGUtilityAccount   False             True 7/16/2026 5:57:32 PM
+WIN10-WS              True            False 7/16/2026 9:25:22 PM
+
+
+==============================================================================
+CONTROLS : CE-UAC-1, CE-UAC-2, ISO-A.8.2, ISO-A.5.18  (privileged access)
+COMMAND  : Get-LocalGroupMember -Group Administrators
+==============================================================================
+
+Name                          ObjectClass
+----                          -----------
+DESKTOP-CMT1CTM\Administrator User
+DESKTOP-CMT1CTM\WIN10-WS      User
+
+
+==============================================================================
+CONTROLS : CE-FW-1, CE-FW-2  (firewall state)
+COMMAND  : Get-NetFirewallProfile
+==============================================================================
+
+Name    Enabled DefaultInboundAction DefaultOutboundAction
+----    ------- -------------------- ---------------------
+Domain    False        NotConfigured         NotConfigured
+Private   False        NotConfigured         NotConfigured
+Public    False        NotConfigured         NotConfigured
+
+
+==============================================================================
+CONTROLS : CE-FW-3  (firewall rule documentation proxy)
+COMMAND  : Get-NetFirewallRule -Direction Inbound -Enabled True
+==============================================================================
+Enabled inbound rules: 93
+
+
+==============================================================================
+CONTROLS : CE-PM-2, CE-PM-4, GDPR-32-8, ISO-A.8.8  (patch currency)
+COMMAND  : Get-HotFix
+==============================================================================
+
+HotFixID  Description     InstalledOn
+--------  -----------     -----------
+KB5014032 Security Update 12/4/2023 12:00:00 AM
+KB5032907 Update          12/4/2023 12:00:00 AM
+KB5033372 Security Update 12/4/2023 12:00:00 AM
+KB5031988 Update          12/4/2023 12:00:00 AM
+KB5015684 Update          12/4/2023 12:00:00 AM
+
+
+==============================================================================
+CONTROLS : CE-PM-4, ISO-A.8.19  (update service state)
+COMMAND  : Get-Service wuauserv
+==============================================================================
+
+Name      Status StartType
+----      ------ ---------
+wuauserv Stopped    Manual
+
+NOTE: captured before the 4 August restore. Phase 9 of the lab build log records this
+service as Disabled; it had drifted to Manual. Reset to Disabled and verified on
+4 August before the evaluation runs.
+
+
+==============================================================================
+CONTROLS : CE-SC-4, CE-SC-5, CE-FW-2  (listening ports)
+COMMAND  : Get-NetTCPConnection -State Listen
+==============================================================================
+135
+139
+445
+5040
+5357
+49664
+49665
+49666
+49667
+52137
+52138
+52139
+
+
+==============================================================================
+CONTROLS : CE-SC-4, CE-SC-5  (running services)
+COMMAND  : Get-Service | Where-Object Status -eq Running
+==============================================================================
+
+Name                     DisplayName
+----                     -----------
+Appinfo                  Application Information
+AppXSvc                  AppX Deployment Service (AppXSVC)
+AudioEndpointBuilder     Windows Audio Endpoint Builder
+Audiosrv                 Windows Audio
+BFE                      Base Filtering Engine
+BITS                     Background Intelligent Transfer Service
+BrokerInfrastructure     Background Tasks Infrastructure Service
+Browser                  Computer Browser
+cbdhsvc_778a8            Clipboard User Service_778a8
+CDPSvc                   Connected Devices Platform Service
+CDPUserSvc_778a8         Connected Devices Platform User Service_778a8
+CoreMessagingRegistrar   CoreMessaging
+CryptSvc                 Cryptographic Services
+DcomLaunch               DCOM Server Process Launcher
+DeviceAssociationService Device Association Service
+Dhcp                     DHCP Client
+DiagTrack                Connected User Experiences and Telemetry
+DispBrokerDesktopSvc     Display Policy Service
+Dnscache                 DNS Client
+DPS                      Diagnostic Policy Service
+DsmSvc                   Device Setup Manager
+DusmSvc                  Data Usage
+EventLog                 Windows Event Log
+EventSystem              COM+ Event System
+fdPHost                  Function Discovery Provider Host
+FDResPub                 Function Discovery Resource Publication
+FontCache                Windows Font Cache Service
+IKEEXT                   IKE and AuthIP IPsec Keying Modules
+InstallService           Microsoft Store Install Service
+iphlpsvc                 IP Helper
+KeyIso                   CNG Key Isolation
+LanmanServer             Server
+LanmanWorkstation        Workstation
+LicenseManager           Windows License Manager Service
+lmhosts                  TCP/IP NetBIOS Helper
+LSM                      Local Session Manager
+mpssvc                   Windows Defender Firewall
+NcbService               Network Connection Broker
+NcdAutoSetup             Network Connected Devices Auto-Setup
+netprofm                 Network List Service
+NlaSvc                   Network Location Awareness
+nsi                      Network Store Interface Service
+OneSyncSvc_778a8         Sync Host_778a8
+PcaSvc                   Program Compatibility Assistant Service
+PlugPlay                 Plug and Play
+PolicyAgent              IPsec Policy Agent
+Power                    Power
+ProfSvc                  User Profile Service
+RasMan                   Remote Access Connection Manager
+RmSvc                    Radio Management Service
+RpcEptMapper             RPC Endpoint Mapper
+RpcSs                    Remote Procedure Call (RPC)
+SamSs                    Security Accounts Manager
+Schedule                 Task Scheduler
+SecurityHealthService    Windows Security Service
+SENS                     System Event Notification Service
+SgrmBroker               System Guard Runtime Monitor Broker
+ShellHWDetection         Shell Hardware Detection
+Spooler                  Print Spooler
+SSDPSRV                  SSDP Discovery
+SstpSvc                  Secure Socket Tunneling Protocol Service
+StateRepository          State Repository Service
+StorSvc                  Storage Service
+SysMain                  SysMain
+SystemEventsBroker       System Events Broker
+TabletInputService       Touch Keyboard and Handwriting Panel Service
+Themes                   Themes
+TimeBrokerSvc            Time Broker
+TokenBroker              Web Account Manager
+TrkWks                   Distributed Link Tracking Client
+TrustedInstaller         Windows Modules Installer
+UserManager              User Manager
+UsoSvc                   Update Orchestrator Service
+VaultSvc                 Credential Manager
+VBoxService              VirtualBox Guest Additions Service
+WaaSMedicSvc             Windows Update Medic Service
+Wcmsvc                   Windows Connection Manager
+WdiServiceHost           Diagnostic Service Host
+WdNisSvc                 Microsoft Defender Antivirus Network Inspection Service
+WinDefend                Microsoft Defender Antivirus Service
+WinHttpAutoProxySvc      WinHTTP Web Proxy Auto-Discovery Service
+Winmgmt                  Windows Management Instrumentation
+WpnService               Windows Push Notifications System Service
+WpnUserService_778a8     Windows Push Notifications User Service_778a8
+wscsvc                   Security Center
+WSearch                  Windows Search
+
+
+==============================================================================
+CONTROLS : CE-MP-1, CE-MP-2, CE-MP-3, ISO-A.8.7  (anti-malware)
+COMMAND  : Get-MpComputerStatus
+==============================================================================
+
+AMServiceEnabled              : True
+RealTimeProtectionEnabled     : True
+AntivirusEnabled              : True
+AntivirusSignatureVersion     : 1.303.25.0
+AntivirusSignatureLastUpdated : 9/23/2019 10:12:58 PM
+
+
+==============================================================================
+CONTROLS : CE-SC-3  (autorun policy)
+COMMAND  : HKLM:\SOFTWARE\Microsoft\Windows\CurrentVersion\Policies\Explorer NoDriveTypeAutoRun
+==============================================================================
+(no value returned - policy key absent, autorun not disabled)
+
+
+==============================================================================
+CONTROLS : CE-UAC-3, CE-UAC-4, ISO-A.8.5, GDPR-32-9  (RDP authentication)
+COMMAND  : HKLM:\SYSTEM\CurrentControlSet\Control\Terminal Server  fDenyTSConnections / UserAuthenticationRequired
+==============================================================================
+
+fDenyTSConnections         : 1
+UserAuthenticationRequired :
+
+NOTE: fDenyTSConnections = 1 means Remote Desktop is DISABLED on this host. The
+RDP-without-MFA misconfiguration applies to Windows Server 2022 only.
+
+
+==============================================================================
+CONTROLS : ISO-A.8.24, GDPR-32-2  (encryption at rest)
+COMMAND  : Get-BitLockerVolume
+==============================================================================
+
+MountPoint   VolumeStatus ProtectionStatus EncryptionMethod
+----------   ------------ ---------------- ----------------
+C:         FullyDecrypted              Off             None
+
+
+==============================================================================
+CONTROLS : ISO-A.8.22, CE-FW-4  (SMB configuration)
+COMMAND  : Get-SmbServerConfiguration
+==============================================================================
+
+EnableSMB1Protocol       : True
+EnableSMB2Protocol       : True
+EnableSecuritySignature  : False
+RequireSecuritySignature : False
+
+
+==============================================================================
+CONTROLS : ISO-A.8.15, ISO-A.8.16  (audit and logging policy)
+COMMAND  : auditpol /get /category:*
+==============================================================================
+System audit policy
+
+Category/Subcategory                      Setting
+System
+  Security System Extension               No Auditing
+  System Integrity                        Success and Failure
+  IPsec Driver                            No Auditing
+  Other System Events                     Success and Failure
+  Security State Change                   Success
+
+Logon/Logoff
+  Logon                                   Success and Failure
+  Logoff                                  Success
+  Account Lockout                         Success
+  IPsec Main Mode                         No Auditing
+  IPsec Quick Mode                        No Auditing
+  IPsec Extended Mode                     No Auditing
+  Special Logon                           Success
+  Other Logon/Logoff Events               No Auditing
+  Network Policy Server                   Success and Failure
+  User / Device Claims                    No Auditing
+  Group Membership                        No Auditing
+
+Object Access
+  File System                             No Auditing
+  Registry                                No Auditing
+  Kernel Object                           No Auditing
+  SAM                                     No Auditing
+  Certification Services                  No Auditing
+  Application Generated                   No Auditing
+  Handle Manipulation                     No Auditing
+  File Share                              No Auditing
+  Filtering Platform Packet Drop          No Auditing
+  Filtering Platform Connection           No Auditing
+  Other Object Access Events              No Auditing
+  Detailed File Share                     No Auditing
+  Removable Storage                       No Auditing
+  Central Policy Staging                  No Auditing
+
+Privilege Use
+  Non Sensitive Privilege Use             No Auditing
+  Other Privilege Use Events              No Auditing
+  Sensitive Privilege Use                 No Auditing
+
+Detailed Tracking
+  Process Creation                        No Auditing
+  Process Termination                     No Auditing
+  DPAPI Activity                          No Auditing
+  RPC Events                              No Auditing
+  Plug and Play Events                    No Auditing
+  Token Right Adjusted Events             No Auditing
+
+Policy Change
+  Audit Policy Change                     Success
+  Authentication Policy Change            Success
+  Authorization Policy Change             No Auditing
+  MPSSVC Rule-Level Policy Change         No Auditing
+  Filtering Platform Policy Change        No Auditing
+  Other Policy Change Events              No Auditing
+
+Account Management
+  Computer Account Management             No Auditing
+  Security Group Management               Success
+  Distribution Group Management           No Auditing
+  Application Group Management            No Auditing
+  Other Account Management Events         No Auditing
+  User Account Management                 Success
+
+DS Access
+  Directory Service Access                No Auditing
+  Directory Service Changes               No Auditing
+  Directory Service Replication           No Auditing
+  Detailed Directory Service Replication  No Auditing
+
+Account Logon
+  Kerberos Service Ticket Operations      No Auditing
+  Other Account Logon Events              No Auditing
+  Kerberos Authentication Service         No Auditing
+  Credential Validation                   No Auditing
+
+
+==============================================================================
+CONTROLS : ISO-A.8.13, ISO-A.8.14, GDPR-32-5  (backup and recovery)
+COMMAND  : vssadmin list shadows
+==============================================================================
+vssadmin 1.1 - Volume Shadow Copy Service administrative command-line tool
+(C) Copyright 2001-2013 Microsoft Corp.
+
+No items found that satisfy the query.
+
+
+==============================================================================
+CONTROLS : CE-SC-4, CE-SC-5  (installed roles and features, server only)
+COMMAND  : Get-WindowsFeature | Where-Object Installed
+==============================================================================
+Get-WindowsFeature is not available on this edition (client OS).
+
+
+==============================================================================
+END OF BASELINE AUDIT

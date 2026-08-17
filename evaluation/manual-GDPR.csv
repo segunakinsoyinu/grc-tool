@@ -1,0 +1,17 @@
+﻿INSTRUMENT: ICO GDPR Article 32 security checklist
+FRAMEWORK: GDPR Article 32  |  12 controls
+Assessed against the same technical evidence as the unified tool (nmap-scan.xml and both host baseline audits).
+
+control_id,control_name,category,checklist_item_used,verdict,evidence_cited
+GDPR-32-1,Pseudonymisation,Technical Measures,Art. 32(1)(a),pass,"JUDGEMENT: no evidence in the pack; questionnaire attests, nothing contradicts"
+GDPR-32-2,Encryption of Personal Data,Technical Measures,Art. 32(1)(a),fail,"Win10 BitLocker FullyDecrypted/Off; server BitLocker absent; FTP, Telnet and HTTP plaintext; SMB signing off"
+GDPR-32-3,Confidentiality of Processing Systems,CIA Triad,Art. 32(1)(b),fail,"Plaintext FTP 21, Telnet 23, HTTP 80; firewall disabled both hosts; Guest enabled without password"
+GDPR-32-4,Integrity of Processing Systems,CIA Triad,Art. 32(1)(b),fail,"Get-SmbServerConfiguration: RequireSecuritySignature False, EnableSecuritySignature False; Object Access auditing off"
+GDPR-32-5,Availability of Processing Systems,CIA Triad,Art. 32(1)(b),fail,vssadmin: no shadow copies on either host; no redundancy evidence
+GDPR-32-6,Resilience of Processing Systems,CIA Triad,Art. 32(1)(b),fail,EnableSMB1Protocol True; firewall disabled; unpatched 1616 days
+GDPR-32-7,Data Recovery Capability,Recovery,Art. 32(1)(c),fail,"vssadmin list shadows: 'No items found that satisfy the query', both hosts"
+GDPR-32-8,Regular Security Testing,Testing,Art. 32(1)(d),fail,Get-HotFix: no patching since 03/03/2022 (server) and 04/12/2023 (Win10); no testing evidence
+GDPR-32-9,Access Controls for Personal Data,Access Control,"Art. 32(1)(b), 32(4)",fail,Guest enabled without password; WIN10-WS admin without password; min length 0; server RDP NLA 0
+GDPR-32-10,Logging and Monitoring of Data Access,Monitoring,Art. 32(1)(b),fail,"auditpol: File System, File Share, Detailed File Share and SAM all 'No Auditing', both hosts"
+GDPR-32-11,Staff Data Protection Training,Organisational Measures,Art. 32(4),pass,"JUDGEMENT: organisational control, no machine evidence available"
+GDPR-32-12,Breach Response and Notification,Incident Response,"Art. 33, 34",fail,"JUDGEMENT: Object Access auditing disabled, so a breach could not be detected or notified within 72 hours"

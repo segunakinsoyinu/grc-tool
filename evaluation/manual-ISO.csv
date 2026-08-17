@@ -1,0 +1,29 @@
+﻿INSTRUMENT: ISO/IEC 27001:2022 Annex A gap analysis template
+FRAMEWORK: ISO 27001:2022  |  24 controls
+Assessed against the same technical evidence as the unified tool (nmap-scan.xml and both host baseline audits).
+
+control_id,control_name,category,checklist_item_used,verdict,evidence_cited
+ISO-A.5.15,Access Control Policy,Organisational Controls,Annex A 5.15,fail,"JUDGEMENT: no policy evidence; enforcement absent (firewall off, Guest enabled, no auditing)"
+ISO-A.5.16,Identity Management,Organisational Controls,Annex A 5.16,fail,Get-LocalUser: Win10 Guest Enabled True with PasswordRequired False; WIN10-WS PasswordRequired False
+ISO-A.5.17,Authentication Information,Organisational Controls,Annex A 5.17,fail,"net accounts: min length 0, history None, server lockout Never"
+ISO-A.5.18,Access Rights,Organisational Controls,Annex A 5.18,fail,WIN10-WS in Administrators; Sensitive Privilege Use 'No Auditing'; no review evidence
+ISO-A.5.23,Cloud Services Security,Organisational Controls,Annex A 5.23,pass,Not applicable: no cloud services in the assessed environment
+ISO-A.8.1,User Endpoint Devices,Technological Controls,Annex A 8.1,fail,"Win10: firewall off, BitLocker Off, Guest enabled, AV signatures 2019, autorun not disabled"
+ISO-A.8.10,Information Deletion,Technological Controls,Annex A 8.10,pass,JUDGEMENT: no machine evidence collected on deletion practice
+ISO-A.8.13,Information Backup,Technological Controls,Annex A 8.13,fail,vssadmin: no shadow copies on either host; no backup configuration present
+ISO-A.8.14,Redundancy of Processing Facilities,Technological Controls,Annex A 8.14,fail,"No shadow copies, single instances, no failover evidence"
+ISO-A.8.15,Logging,Technological Controls,Annex A 8.15,fail,"auditpol: Object Access, Detailed Tracking and Privilege Use categories all 'No Auditing'"
+ISO-A.8.16,Monitoring Activities,Technological Controls,Annex A 8.16,fail,Same auditpol evidence; no monitoring or alerting capability present
+ISO-A.8.17,Clock Synchronisation,Technological Controls,Annex A 8.17,pass,JUDGEMENT: W32Time running on server; not observed on Win10 but evidence insufficient to fail
+ISO-A.8.19,Software Installation Controls,Technological Controls,Annex A 8.19,fail,"tvnserver installed ad hoc; IIS, FTP Server, SMB1, XPS Viewer present; no execution control"
+ISO-A.8.2,Privileged Access Rights,Technological Controls,Annex A 8.2,fail,Server Administrator used interactively; WIN10-WS in Administrators; privilege-use auditing off
+ISO-A.8.20,Network Security,Technological Controls,Annex A 8.20,fail,"Firewall off both hosts; Telnet 23, FTP 21, HTTP 80 and VNC 5900 exposed"
+ISO-A.8.21,Security of Network Services,Technological Controls,Annex A 8.21,fail,FTP without SSL; Telnet plaintext; SMB signing disabled; VNC exposed
+ISO-A.8.22,Segregation of Networks,Technological Controls,Annex A 8.22,fail,Both hosts on flat 10.0.2.0/24; no VLAN or segmentation present
+ISO-A.8.23,Web Filtering,Technological Controls,Annex A 8.23,pass,JUDGEMENT: no evidence collected on web filtering
+ISO-A.8.24,Use of Cryptography,Technological Controls,Annex A 8.24,fail,BitLocker Off (Win10) and absent (server); SMB signing disabled; plaintext protocols in use
+ISO-A.8.3,Information Access Restriction,Technological Controls,Annex A 8.3,fail,Firewall off; SMB reachable; Guest enabled; Object Access unaudited
+ISO-A.8.5,Secure Authentication,Technological Controls,Annex A 8.5,fail,Server RDP UserAuthenticationRequired 0; min password length 0; accounts without passwords
+ISO-A.8.7,Protection Against Malware,Technological Controls,Annex A 8.7,fail,Win10 AntivirusSignatureLastUpdated 23/09/2019
+ISO-A.8.8,Management of Technical Vulnerabilities,Technological Controls,Annex A 8.8,fail,Server unpatched 1616 days; Win10 608 days; wuauserv disabled; SMB1 enabled
+ISO-A.8.9,Configuration Management,Technological Controls,Annex A 8.9,fail,"No baseline enforcement: firewall off, autorun enabled, SMB1 on, SMB signing off"

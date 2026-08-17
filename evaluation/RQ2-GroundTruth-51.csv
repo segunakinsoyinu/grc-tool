@@ -1,0 +1,56 @@
+﻿RQ2 GROUND TRUTH - 51 assessable controls
+Established from documented evidence before participant data collection.
+MACHINE = verifiable from the baseline audit or Nmap scan. SCENARIO = stated explicitly in the participant scenario.
+
+control_id,framework,control_name,ground_truth,source,fact
+CE-FW-1,Cyber Essentials,Firewall Coverage,non-compliant,MACHINE,"Get-NetFirewallProfile: Domain/Private/Public all False, both hosts (scenario s2)"
+CE-FW-2,Cyber Essentials,Default Deny Inbound,non-compliant,MACHINE,DefaultInboundAction NotConfigured; router on factory settings (scenario s2)
+CE-FW-3,Cyber Essentials,Firewall Rule Documentation,non-compliant,SCENARIO,s2: no written record of permitted connections; never reviewed
+CE-FW-4,Cyber Essentials,Block Unnecessary Services,non-compliant,MACHINE,"Ports 21, 23, 5900 listening; EnableSMB1Protocol True (scenario s3)"
+CE-MP-1,Cyber Essentials,Malware Protection Installed,compliant,MACHINE,"Get-MpComputerStatus: AMServiceEnabled True, RealTimeProtectionEnabled True (scenario s8)"
+CE-MP-2,Cyber Essentials,Malware Definitions Updated,non-compliant,MACHINE,Win10 AntivirusSignatureLastUpdated 23/09/2019 (scenario s8)
+CE-MP-3,Cyber Essentials,Regular Malware Scans,partial,SCENARIO,JUDGEMENT s8: real-time protection active but no scheduled scans configured
+CE-MP-4,Cyber Essentials,Block Malicious Execution,partial,SCENARIO,JUDGEMENT s8: Defender blocks known malware but definitions six years stale on 5 of 6 machines
+CE-PM-1,Cyber Essentials,Licensed and Supported Software,non-compliant,SCENARIO,"s4: Windows 10, Microsoft support ended October 2025"
+CE-PM-2,Cyber Essentials,Patch Within 14 Days,non-compliant,MACHINE,"Get-HotFix: server 03/03/2022, Win10 04/12/2023 (scenario s5)"
+CE-PM-4,Cyber Essentials,Auto-update Enabled,non-compliant,MACHINE,"Get-Service wuauserv Disabled; automatic updating not enabled (scenario s4, s5)"
+CE-SC-1,Cyber Essentials,Change Default Passwords,non-compliant,MACHINE,"Get-LocalUser: Guest and WIN10-WS PasswordRequired False; net accounts min length 0 (s6, s7)"
+CE-SC-2,Cyber Essentials,Disable Unnecessary Accounts,non-compliant,MACHINE,"Get-LocalUser: Guest Enabled True, no password (scenario s6)"
+CE-SC-3,Cyber Essentials,Disable Auto-run,non-compliant,MACHINE,"NoDriveTypeAutoRun policy key absent, both hosts (scenario s4)"
+CE-SC-4,Cyber Essentials,Minimal Software Installation,non-compliant,MACHINE,"Get-WindowsFeature: IIS, FTP Server, SMB1, XPS Viewer installed (scenario s9)"
+CE-SC-5,Cyber Essentials,Remove Unused Software,non-compliant,SCENARIO,"s9: unused Windows features retained, including an old document viewer"
+CE-UAC-1,Cyber Essentials,Admin Account Separation,non-compliant,SCENARIO,s6: Administrator used for everything including email; no separate standard accounts
+CE-UAC-2,Cyber Essentials,Least Privilege,non-compliant,MACHINE,Get-LocalGroupMember: staff account in Administrators (scenario s6)
+CE-UAC-3,Cyber Essentials,MFA for Cloud Services,compliant,SCENARIO,s7: MFA enabled on Microsoft 365 and the accounting package
+CE-UAC-4,Cyber Essentials,MFA for Remote Access,non-compliant,MACHINE,"UserAuthenticationRequired 0; MFA not used for inbound access (scenario s3, s7)"
+CE-UAC-5,Cyber Essentials,Password Policy,non-compliant,MACHINE,"net accounts: min length 0, history None, server lockout Never (scenario s7)"
+GDPR-32-1,GDPR Article 32,Pseudonymisation,partial,SCENARIO,"JUDGEMENT s10: no pseudonymisation, but proportionality is arguable for 400 contact records"
+GDPR-32-2,GDPR Article 32,Encryption of Personal Data,non-compliant,MACHINE,BitLocker Off (Win10) and absent (server); unencrypted transfer (scenario s10)
+GDPR-32-3,GDPR Article 32,Confidentiality of Processing Systems,non-compliant,MACHINE,"Plaintext FTP, Telnet and HTTP; firewall off; Guest enabled (scenario s2, s3, s10)"
+GDPR-32-5,GDPR Article 32,Availability of Processing Systems,non-compliant,MACHINE,vssadmin: no shadow copies; no standby equipment (scenario s11)
+GDPR-32-6,GDPR Article 32,Resilience of Processing Systems,non-compliant,MACHINE,"EnableSMB1Protocol True; firewall disabled; unpatched 1616 days (scenario s3, s5)"
+GDPR-32-7,GDPR Article 32,Data Recovery Capability,non-compliant,MACHINE,vssadmin: 'No items found'; nothing ever restored or tested (scenario s11)
+GDPR-32-8,GDPR Article 32,Regular Security Testing,non-compliant,SCENARIO,s13: no vulnerability scan or penetration test ever carried out
+GDPR-32-9,GDPR Article 32,Access Controls for Personal Data,non-compliant,MACHINE,"Passwordless admin accounts; Guest enabled; RDP NLA 0 (scenario s6, s7, s10)"
+GDPR-32-10,GDPR Article 32,Logging and Monitoring of Data Access,non-compliant,MACHINE,"auditpol: File System, File Share and SAM all 'No Auditing' (scenario s12)"
+GDPR-32-12,GDPR Article 32,Breach Response and Notification,non-compliant,SCENARIO,"s13: no written plan, no notification timescale, no detection capability"
+ISO-A.5.15,ISO 27001:2022,Access Control Policy,non-compliant,SCENARIO,s13: no written access control policy
+ISO-A.5.16,ISO 27001:2022,Identity Management,non-compliant,MACHINE,Get-LocalUser: Guest active without authentication (scenario s6)
+ISO-A.5.17,ISO 27001:2022,Authentication Information,non-compliant,MACHINE,"net accounts: min length 0, history None (scenario s7)"
+ISO-A.5.18,ISO 27001:2022,Access Rights,non-compliant,SCENARIO,s6: nobody has reviewed who has access to what since the accounts were created
+ISO-A.5.23,ISO 27001:2022,Cloud Services Security,compliant,SCENARIO,s7: MFA enabled on both cloud services; no negative fact stated
+ISO-A.8.2,ISO 27001:2022,Privileged Access Rights,non-compliant,MACHINE,Administrator shared by director and contractor; staff in Administrators (scenario s6)
+ISO-A.8.3,ISO 27001:2022,Information Access Restriction,non-compliant,MACHINE,"Flat network; shared folder unrestricted; Object Access unaudited (scenario s2, s10)"
+ISO-A.8.5,ISO 27001:2022,Secure Authentication,non-compliant,MACHINE,"UserAuthenticationRequired 0; min password length 0 (scenario s3, s7)"
+ISO-A.8.7,ISO 27001:2022,Protection Against Malware,non-compliant,MACHINE,Win10 signatures 23/09/2019 (scenario s8)
+ISO-A.8.8,ISO 27001:2022,Management of Technical Vulnerabilities,non-compliant,MACHINE,No patch schedule; wuauserv disabled; SMB1 enabled (scenario s5)
+ISO-A.8.9,ISO 27001:2022,Configuration Management,non-compliant,SCENARIO,s9: no machine follows a standard build; each configured individually
+ISO-A.8.10,ISO 27001:2022,Information Deletion,partial,SCENARIO,"JUDGEMENT s10: deletion occurs but by recycle bin only, not securely"
+ISO-A.8.13,ISO 27001:2022,Information Backup,non-compliant,MACHINE,vssadmin: no shadow copies; no backup system (scenario s11)
+ISO-A.8.14,ISO 27001:2022,Redundancy of Processing Facilities,non-compliant,SCENARIO,"s11: no second server, no standby equipment, no supplier arrangement"
+ISO-A.8.15,ISO 27001:2022,Logging,non-compliant,MACHINE,auditpol: Object Access and Detailed Tracking categories all 'No Auditing' (scenario s12)
+ISO-A.8.16,ISO 27001:2022,Monitoring Activities,non-compliant,SCENARIO,s12: nobody reviews the logs; no monitoring software or alerting
+ISO-A.8.19,ISO 27001:2022,Software Installation Controls,non-compliant,SCENARIO,"s9: software installed by whoever needs it, no approval step"
+ISO-A.8.20,ISO 27001:2022,Network Security,non-compliant,MACHINE,"Firewall off; Telnet, FTP, HTTP and VNC exposed (scenario s2, s3)"
+ISO-A.8.22,ISO 27001:2022,Segregation of Networks,non-compliant,MACHINE,Both hosts on flat 10.0.2.0/24; no separation (scenario s2)
+ISO-A.8.24,ISO 27001:2022,Use of Cryptography,non-compliant,MACHINE,No encryption at rest or in transit; SMB signing disabled (scenario s10)

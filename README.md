@@ -77,6 +77,27 @@ python3 main.py
 Then open http://127.0.0.1:8000/ and submit an assessment. Start `agent.ps1` on the
 Windows host first if host evidence is required.
 
+## Evaluation data
+
+`evaluation/` holds the data behind the reported results, so the evaluation can be checked
+rather than taken on trust:
+
+| File | What it is |
+|---|---|
+| `RQ2-GroundTruth-51.csv` | The control-by-control ground truth both arms were scored against |
+| `manual-CE.csv`, `manual-GDPR.csv`, `manual-ISO.csv` | The three independent single-framework assessments used as the RQ1 comparator |
+| `nmap-scan.xml` | The scan the parser findings derive from |
+| `baseline-audit-Windows-Server-2022.txt` | Independent host state capture, Windows Server 2022 target |
+| `baseline-audit-Windows-10-Workstation.txt` | Independent host state capture, Windows 10 target |
+
+Both baseline audits were produced by `baseline-audit.ps1`, written separately from the tool
+so that the evaluation could be verified against something the tool had no part in.
+
+**Participant data is not published and will not be.** The ethics approval for this study
+(P195069) commits to holding participant responses on local storage and not sharing them with
+third parties. Only anonymised aggregate scores appear in the report. The assessment database
+is also excluded, as it holds the full run history rather than the reported results.
+
 ## Status and limitations
 
 Research prototype, not production software. It runs in an isolated laboratory with a
