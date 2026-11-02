@@ -1,7 +1,6 @@
 # GRC Compliance Assessment Tool
 
-A unified compliance assessment tool for UK SMEs, built for the 7005SCN Individual
-Research Project, MSc Cyber Security, Coventry University.
+A unified compliance assessment tool for UK SMEs.
 
 It assesses an organisation against **Cyber Essentials v3.1**, **GDPR Article 32** and
 **ISO/IEC 27001:2022 Annex A** simultaneously, from a single questionnaire combined with
@@ -17,6 +16,15 @@ automatically collected technical evidence.
 - Classification by an LLM constrained to a fixed JSON schema, so output is structurally
   validated before it reaches the database
 - HTML dashboard and PDF report
+
+## Results
+
+- Cut a 114-minute compliance assessment to 6.3 minutes
+- Evaluated against an isolated lab with deliberately misconfigured Windows Server 2022
+  and Windows 10 targets
+
+Screenshots and architecture diagrams are on the
+[project page](https://segunakinsoyinu.github.io/MyPortfolio/projects/grc-tool.html).
 
 ## Architecture
 
@@ -84,8 +92,8 @@ rather than taken on trust:
 
 | File | What it is |
 |---|---|
-| `RQ2-GroundTruth-51.csv` | The control-by-control ground truth both arms were scored against |
-| `manual-CE.csv`, `manual-GDPR.csv`, `manual-ISO.csv` | The three independent single-framework assessments used as the RQ1 comparator |
+| `RQ2-GroundTruth-51.csv` | The control-by-control ground truth that the tool and the manual assessments were scored against |
+| `manual-CE.csv`, `manual-GDPR.csv`, `manual-ISO.csv` | The three independent single-framework assessments used as the manual comparison |
 | `nmap-scan.xml` | The scan the parser findings derive from |
 | `baseline-audit-Windows-Server-2022.txt` | Independent host state capture, Windows Server 2022 target |
 | `baseline-audit-Windows-10-Workstation.txt` | Independent host state capture, Windows 10 target |
@@ -103,8 +111,8 @@ is also excluded, as it holds the full run history rather than the reported resu
 Research prototype, not production software. It runs in an isolated laboratory with a
 single operator. Known limitations include no endpoint authentication, a permissive CORS
 policy, unescaped organisation names in report templates, and unenforced SQLite foreign
-keys. Host evidence collection is Windows-only. These are documented in the accompanying
-report.
+keys. Host evidence collection is Windows-only. These would need fixing before any production
+use.
 
 ## Licence
 
